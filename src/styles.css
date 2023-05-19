@@ -45,6 +45,21 @@ button:focus-visible{
     flex-direction: column; 
     gap: 16px;
 }
+#add-project {
+    font-size: 1.8rem;
+    background-color: #9ca3af;
+    color: #f8fafc;
+    border-radius: 5px 5px 5px 5px;
+    padding: 8px;
+}
+#add-project:hover {
+    background-color: #6b7280;
+    cursor: pointer;
+    
+}
+.hide {
+    display: none;
+}
 .sidebar-list {
     padding: 32px;
     color: #f8fafc;

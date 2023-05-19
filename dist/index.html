@@ -19,10 +19,18 @@
             <div class="sidebar-list">
                 <div id="projects-title">My Projects</div>
                 <!-- <button class="project-item" id="task-today">Today</button> -->
-                <div id="add-project">Add New Project</div>
+                <form action="" class="hide" id="project-form">
+                    <input type="text" maxlength="20">
+                    <div class="row">
+                        <input type="submit" value="Add">
+                        <input type="submit" value="Cancel">
+                    </div>
+                </form>
+                <button id="add-project">Add New Project</button>
             </div>
         </div>
         <div class="todo-list">
+
             <button class="add-task">Add Task</button>
         </div>
     </div>
