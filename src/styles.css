@@ -10,6 +10,13 @@ html {
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
 }
+button {
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+}
+button:focus-visible{
+    outline: none;
+}
 .navbar {
     display: flex;
     font-size: 100px;
@@ -33,7 +40,10 @@ html {
 }
 #projects-title {
     font-weight: 900;
-    color: #ef4444; 
+    color: #ef4444;
+    display: flex;
+    flex-direction: column; 
+    gap: 16px;
 }
 .sidebar-list {
     padding: 32px;
@@ -44,6 +54,8 @@ html {
 }
 .project-item {
     display: flex;
+    font-size: 1.8rem;
+    color: #f8fafc;
     justify-content: center;
     background-color: #6b7280;
     border-radius: 0px 5px 5px 0px;
@@ -54,6 +66,9 @@ html {
 .project-item:hover {
     cursor: pointer;
     background-color: #4b5563;
+}
+.project-item:focus-visible {
+    outline: none;
 }
 .todo-list {
     width: 100%;

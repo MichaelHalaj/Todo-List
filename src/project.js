@@ -18,6 +18,14 @@ class Project {
   addTask(taskObj) {
     this.taskList.push(taskObj);
   }
+
+  set setTaskList(taskList) {
+    this.setTaskList = taskList;
+  }
+
+  get getTaskList() {
+    return this.taskList;
+  }
 }
 
 export default Project;
