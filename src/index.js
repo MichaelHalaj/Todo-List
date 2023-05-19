@@ -20,20 +20,34 @@ const projectsList = [];
 
 addNewProjectNode.addEventListener('click', () => {
   projectFormNode.classList.remove('hide');
+  projectFormNode.classList.add('col');
   addNewProjectNode.classList.add('hide');
 });
-/* const projectFormNode = document.createElement('form');
-const projectFormInputNode = document.createElement('input');
-projectFormInputNode.setAttribute('type', 'text');
-projectFormInputNode.setAttribute('maxlength', '20');
-projectFormNode.appendChild(projectFormInputNode);
-const projectFormSubmitNode = document.createElement('input');
-projectFormSubmitNode.setAttribute('type', 'submit');
-projectFormSubmitNode.setAttribute('value', 'Add');
-projectFormNode.appendChild(projectFormSubmitNode);
-addNewProjectNode.addEventListener('click', () => {
-  sideBarListNode.insertBefore(projectFormNode, addNewProjectNode);
-}); */
+
+projectFormNode.addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log(e.target[0].value);
+  const newProject = new Project(e.target[0].value);
+  const newProjectNode = document.createElement('button');
+  newProjectNode.textContent = newProject.getProjectTitle;
+  newProjectNode.classList.add('project-item');
+  projectsList.push(newProject);
+  myProjectsTitle.appendChild(newProjectNode);
+
+  newProjectNode.addEventListener('click', () => {
+    removeAllChildren(todoListNode);
+    newProject.getTaskList.forEach((task) => {
+      const taskNode = document.createElement('div');
+      taskNode.innerText = task.title;
+      todoListNode.appendChild(taskNode);
+    });
+    const taskNode = document.createElement('div');
+    taskNode.innerText = task
+  });
+  projectFormNode.classList.add('hide');
+  projectFormNode.classList.remove('col');
+  addNewProjectNode.classList.remove('hide');
+});
 
 /**
  * Set up the page with a default today project
