@@ -41,12 +41,11 @@ projectFormNode.addEventListener('submit', (e) => {
       taskNode.innerText = task.title;
       todoListNode.appendChild(taskNode);
     });
-    const taskNode = document.createElement('div');
-    taskNode.innerText = task
   });
   projectFormNode.classList.add('hide');
   projectFormNode.classList.remove('col');
   addNewProjectNode.classList.remove('hide');
+  projectFormNode.reset();
 });
 
 /**

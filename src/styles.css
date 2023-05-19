@@ -9,6 +9,8 @@ html {
     background-color: #f8fafc;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 button {
     border: none;
