@@ -69,7 +69,9 @@ function createNewProject(projectTitle) {
     addTaskNode.addEventListener('click', () => {
       console.log('task node');
       const taskFormNode = createTaskForm();
-      todoListNode.insertBefore(taskFormNode, addTaskNode);
+      todoListNode.removeChild(addTaskNode);
+      todoListNode.appendChild(taskFormNode);
+      // todoListNode.insertBefore(taskFormNode, addTaskNode);
       taskFormNode.addEventListener('submit', (e) => {
         e.preventDefault();
         if (e.submitter.id === 'cancel-button') {
@@ -84,6 +86,7 @@ function createNewProject(projectTitle) {
           todoListNode.appendChild(taskItemNode);
           todoListNode.removeChild(taskFormNode);
         }
+        todoListNode.appendChild(addTaskNode);
       });
     });
   });

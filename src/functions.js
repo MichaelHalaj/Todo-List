@@ -19,10 +19,12 @@ const createTaskForm = () => {
   title.setAttribute('id', 'title');
   title.setAttribute('type', 'text');
   title.setAttribute('maxlength', '30');
+  title.setAttribute('placeholder', 'Enter Task Name');
 
   // Create description input
   const description = document.createElement('textarea');
   description.setAttribute('id', 'description');
+  description.setAttribute('placeholder', 'Enter Description of Task (Optional)')
 
   // Create date input
   const date = document.createElement('input');
