@@ -32,6 +32,8 @@ const createTaskForm = () => {
   // Create row
   const row = document.createElement('div');
   row.classList.add('row-task-form');
+  const row2 = document.createElement('div');
+  row2.classList.add('row-task-form');
 
   // Create submit
   const submit = document.createElement('input');
@@ -46,10 +48,11 @@ const createTaskForm = () => {
 
   row.appendChild(title);
   row.appendChild(date);
+  row2.appendChild(submit);
+  row2.appendChild(cancel);
   form.appendChild(row);
   form.appendChild(description);
-  form.appendChild(submit);
-  form.appendChild(cancel);
+  form.appendChild(row2);
   return form;
 };
 export { removeAllChildren, createAddTaskNode, createTaskForm };

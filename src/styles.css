@@ -172,3 +172,11 @@ input[type='text']:focus-visible {
 #title {
     flex: 1;
 }
+.task-item {
+    box-shadow: 0 0 5px #9ca3af;
+    border-radius: 5px;
+    padding: 8px;
+}
+.task-item:hover {
+    background-color: #f1f5f9;
+}

@@ -43,6 +43,14 @@ addNewProjectNode.addEventListener('click', () => {
   showProjectForm();
 });
 
+function createTaskItemNode(task) {
+  const taskNode = document.createElement('div');
+  const titleTaskNode = document.createElement('div');
+  titleTaskNode.innerText = task.title;
+  taskNode.appendChild(titleTaskNode);
+  taskNode.classList.add('task-item');
+  return taskNode;
+}
 function createNewProject(projectTitle) {
   const newProject = new Project(projectTitle);
   const newProjectNode = document.createElement('button');
@@ -53,15 +61,30 @@ function createNewProject(projectTitle) {
   newProjectNode.addEventListener('click', () => {
     removeAllChildren(todoListNode);
     newProject.getTaskList.forEach((task) => {
-      const taskNode = document.createElement('div');
-      taskNode.innerText = task.title;
+      const taskNode = createTaskItemNode(task);
       todoListNode.appendChild(taskNode);
     });
     const addTaskNode = createAddTaskNode();
     todoListNode.appendChild(addTaskNode);
     addTaskNode.addEventListener('click', () => {
       console.log('task node');
-      todoListNode.insertBefore(createTaskForm(), addTaskNode);
+      const taskFormNode = createTaskForm();
+      todoListNode.insertBefore(taskFormNode, addTaskNode);
+      taskFormNode.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (e.submitter.id === 'cancel-button') {
+          todoListNode.removeChild(taskFormNode);
+        } else {
+          const title = e.target[0].value;
+          const date = e.target[1].value;
+          const description = e.target[2].value;
+          const task = Task(title, description, date, 'none');
+          newProject.addTask(task);
+          const taskItemNode = createTaskItemNode(task);
+          todoListNode.appendChild(taskItemNode);
+          todoListNode.removeChild(taskFormNode);
+        }
+      });
     });
   });
   hideProjectForm();
