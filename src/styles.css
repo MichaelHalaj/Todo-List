@@ -161,3 +161,14 @@ input[type='text']:focus-visible {
 .add-task:focus-visible {
     outline: none;
 }
+#task-form {
+    display: flex;
+    flex-direction: column;
+}
+.row-task-form {
+    display: flex;
+}
+#due-date,
+#title {
+    flex: 1;
+}

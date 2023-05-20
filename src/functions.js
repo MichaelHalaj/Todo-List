@@ -29,9 +29,27 @@ const createTaskForm = () => {
   date.setAttribute('type', 'datetime-local');
   date.setAttribute('id', 'due-date');
 
-  form.appendChild(title);
+  // Create row
+  const row = document.createElement('div');
+  row.classList.add('row-task-form');
+
+  // Create submit
+  const submit = document.createElement('input');
+  submit.setAttribute('type', 'submit');
+  submit.setAttribute('id', 'add-task-button');
+  submit.setAttribute('value', 'Add');
+
+  // Create cancel
+  const cancel = document.createElement('button');
+  cancel.setAttribute('id', 'cancel-button');
+  cancel.innerText = 'Cancel';
+
+  row.appendChild(title);
+  row.appendChild(date);
+  form.appendChild(row);
   form.appendChild(description);
-  form.appendChild(date);
+  form.appendChild(submit);
+  form.appendChild(cancel);
   return form;
 };
 export { removeAllChildren, createAddTaskNode, createTaskForm };
