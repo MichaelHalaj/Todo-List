@@ -93,6 +93,12 @@ function createNewProject(projectTitle) {
   myProjectsTitle.appendChild(newProjectNode);
   newProjectNode.addEventListener('click', () => {
     removeAllChildren(todoListNode);
+    const projectTitleContainerNode = document.createElement('div');
+    projectTitleContainerNode.classList.add('todo-list-project-title');
+    const projectTitleNode = document.createElement('div');
+    projectTitleNode.innerText = newProject.getProjectTitle;
+    projectTitleContainerNode.appendChild(projectTitleNode);
+    todoListNode.appendChild(projectTitleContainerNode);
     newProject.getTaskList.forEach((task) => {
       const taskNode = createTaskItemNode(task);
       todoListNode.appendChild(taskNode);
