@@ -46,8 +46,23 @@ addNewProjectNode.addEventListener('click', () => {
 function createTaskItemNode(task) {
   const taskNode = document.createElement('div');
   const titleTaskNode = document.createElement('div');
+
+  const row = document.createElement('div');
+  row.classList.add('task-row');
+
+  const container = document.createElement('label');
+  container.classList.add('container');
+  const checkMarkInput = document.createElement('input');
+  checkMarkInput.setAttribute('type', 'checkbox');
+  const checkmark = document.createElement('span');
+  checkmark.classList.add('checkmark');
+
+  container.appendChild(checkMarkInput);
+  container.appendChild(checkmark);
+  taskNode.appendChild(container);
+  row.appendChild(titleTaskNode);
   titleTaskNode.innerText = task.title;
-  taskNode.appendChild(titleTaskNode);
+  taskNode.appendChild(row);
   taskNode.classList.add('task-item');
   return taskNode;
 }
