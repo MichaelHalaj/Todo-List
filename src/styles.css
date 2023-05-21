@@ -319,3 +319,6 @@ textarea:focus-visible {
     padding-left: 50px;
     display: flex;
 }
+.due-date-display {
+    margin-left: auto;
+}

@@ -1,7 +1,9 @@
 import './styles.css';
+import { format, compareAsc } from 'date-fns';
 import Project from './project';
 import Task from './task';
 import { removeAllChildren, createAddTaskNode, createTaskForm } from './functions';
+
 
 /**
  * Attach all project titles under the My Projects title within the DOM
@@ -46,6 +48,7 @@ addNewProjectNode.addEventListener('click', () => {
 function createTaskItemNode(task) {
   const taskNode = document.createElement('div');
   const titleTaskNode = document.createElement('div');
+  const dueDateNode = document.createElement('div');
 
   const row = document.createElement('div');
   row.classList.add('task-row');
@@ -66,15 +69,21 @@ function createTaskItemNode(task) {
       task.setCompleted = true;
     }
   });
+
+  dueDateNode.innerText = task.getFormattedDate;
+  dueDateNode.setAttribute('class', 'due-date-display');
+
   container.appendChild(checkMarkInput);
   container.appendChild(checkmark);
   taskNode.appendChild(container);
   row.appendChild(titleTaskNode);
+  row.appendChild(dueDateNode);
   titleTaskNode.innerText = task.getTitle;
   taskNode.appendChild(row);
   taskNode.classList.add('task-item');
   return taskNode;
 }
+
 function createNewProject(projectTitle) {
   const newProject = new Project(projectTitle);
   const newProjectNode = document.createElement('button');

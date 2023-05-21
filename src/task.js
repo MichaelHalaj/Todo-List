@@ -1,3 +1,5 @@
+import { format, compareAsc } from 'date-fns';
+
 class Task {
   constructor(title, description, dueDate, priority = 'none', completed = false) {
     this.title = title;
@@ -5,6 +7,12 @@ class Task {
     this.dueDate = dueDate;
     this.priority = priority;
     this.completed = completed;
+    const dateFNS = new Date(dueDate);
+    this.formattedDate = format(dateFNS, 'H:ma MM/dd/yyyy');
+  }
+
+  get getFormattedDate() {
+    return this.formattedDate;
   }
 
   get getTitle() {
