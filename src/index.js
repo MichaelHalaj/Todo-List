@@ -56,12 +56,21 @@ function createTaskItemNode(task) {
   checkMarkInput.setAttribute('type', 'checkbox');
   const checkmark = document.createElement('span');
   checkmark.classList.add('checkmark');
-
+  if (task.completed) {
+    checkMarkInput.setAttribute('checked', 'checked');
+  }
+  checkMarkInput.addEventListener('click', () => {
+    if (task.completed) {
+      task.setCompleted = false;
+    } else {
+      task.setCompleted = true;
+    }
+  });
   container.appendChild(checkMarkInput);
   container.appendChild(checkmark);
   taskNode.appendChild(container);
   row.appendChild(titleTaskNode);
-  titleTaskNode.innerText = task.title;
+  titleTaskNode.innerText = task.getTitle;
   taskNode.appendChild(row);
   taskNode.classList.add('task-item');
   return taskNode;
@@ -95,7 +104,7 @@ function createNewProject(projectTitle) {
           const title = e.target[0].value;
           const date = e.target[1].value;
           const description = e.target[2].value;
-          const task = Task(title, description, date, 'none');
+          const task = new Task(title, description, date);
           newProject.addTask(task);
           const taskItemNode = createTaskItemNode(task);
           todoListNode.appendChild(taskItemNode);
