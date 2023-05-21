@@ -46,12 +46,22 @@ addNewProjectNode.addEventListener('click', () => {
 });
 
 function createTaskItemNode(task) {
+  const taskContainer = document.createElement('div');
   const taskNode = document.createElement('div');
   const titleTaskNode = document.createElement('div');
   const dueDateNode = document.createElement('div');
+  const descriptionContainer = document.createElement('div');
+  const descriptionNode = document.createElement('div');
 
+  descriptionNode.classList.add('description-text');
+  descriptionContainer.appendChild(descriptionNode);
+  descriptionContainer.classList.add('description-container');
+  descriptionNode.innerText = task.getDescription;
+  descriptionContainer.classList.add('hide');
   const row = document.createElement('div');
   row.classList.add('task-row');
+
+  taskContainer.classList.add('task-item-container');
 
   const container = document.createElement('label');
   container.classList.add('container');
@@ -81,7 +91,18 @@ function createTaskItemNode(task) {
   titleTaskNode.innerText = task.getTitle;
   taskNode.appendChild(row);
   taskNode.classList.add('task-item');
-  return taskNode;
+  taskContainer.appendChild(taskNode);
+  if (task.getDescription.length > 0) {
+    taskContainer.appendChild(descriptionContainer);
+  }
+  taskNode.addEventListener('click', () => {
+    if (descriptionContainer.classList.contains('hide')) {
+      descriptionContainer.classList.remove('hide');
+    } else {
+      descriptionContainer.classList.add('hide');
+    }
+  });
+  return taskContainer;
 }
 
 function createNewProject(projectTitle) {

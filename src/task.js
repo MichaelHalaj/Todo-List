@@ -8,7 +8,7 @@ class Task {
     this.priority = priority;
     this.completed = completed;
     const dateFNS = new Date(dueDate);
-    this.formattedDate = format(dateFNS, 'H:ma MM/dd/yyyy');
+    this.formattedDate = format(dateFNS, 'H:mma MM/dd/yyyy');
   }
 
   get getFormattedDate() {

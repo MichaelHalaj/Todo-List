@@ -2,7 +2,7 @@ body,
 html {
     display: flex;
     font-size: 16px;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -31,14 +31,16 @@ button:focus-visible{
     display: flex;
     font-size: 1.8em;
     height: 100%;
-    width: 100vw;
+    width: 100%;
 }
 .title-second {
     color: #ef4444;
 }
 .sidebar {
     background-color: #9ca3af;
+    height: 100%;
     flex: 1 1 600px;
+    overflow-y: auto;
 }
 #projects-title {
     font-weight: 900;
@@ -184,6 +186,7 @@ textarea {
     border-radius: 5px;
     padding: 8px;
     color: #4b5563;
+    width: 100%;
 }
 .task-item:hover {
     background-color: #f1f5f9;
@@ -330,4 +333,21 @@ textarea:focus-visible {
     font-weight: 900;
     padding-bottom: 8px;
     font-size: 1.8rem;
+}
+.description-container {
+    font-size: 1.2rem;
+    width: 70%;
+    
+    color: #9ca3af;
+    box-shadow: 0 3px 3px #9ca3af88;
+    padding: 8px;
+    border-radius: 0px 0px 5px 5px;
+}
+.description-text {
+    overflow-wrap: anywhere;
+}
+.task-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
