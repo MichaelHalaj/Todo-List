@@ -11,6 +11,7 @@ html {
     font-family: 'Montserrat', sans-serif;
     max-width: 100%;
     overflow-x: hidden;
+    overflow-y: auto; 
 }
 button {
     border: none;
@@ -32,6 +33,8 @@ button:focus-visible{
     font-size: 1.8em;
     height: 100%;
     width: 100%;
+    overflow-y: auto;
+    background-color: #9ca3af;
 }
 .title-second {
     color: #ef4444;
@@ -147,6 +150,8 @@ input[type='text']:focus-visible {
     flex-direction: column;
     gap: 16px;
     padding: 24px;
+    overflow-y: auto;
+    background-color: #f8fafc;
 }
 .add-task {
     background-color: #f8fafc;
