@@ -326,6 +326,8 @@ textarea:focus-visible {
 .task-row {
     padding-left: 50px;
     display: flex;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
 }
 .due-date-display {
     margin-left: auto;
