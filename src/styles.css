@@ -328,6 +328,7 @@ textarea:focus-visible {
     display: flex;
     flex-wrap: wrap;
     overflow-wrap: anywhere;
+    gap: 8px;
 }
 .due-date-display {
     margin-left: auto;
@@ -366,4 +367,13 @@ textarea:focus-visible {
 }
 #plus-svg {
     height: 30px;
+}
+.task-svg {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+.task-svg:hover {
+    cursor: pointer;
+    background-color: #d1d5da;
 }

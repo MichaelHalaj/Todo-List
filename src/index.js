@@ -3,6 +3,7 @@ import { format, compareAsc } from 'date-fns';
 import Project from './project';
 import Task from './task';
 import { removeAllChildren, createAddTaskNode, createTaskForm } from './functions';
+import { ro } from 'date-fns/locale';
 // import { plusSVG } from './svg';
 
 /**
@@ -45,7 +46,7 @@ addNewProjectNode.addEventListener('click', () => {
   showProjectForm();
 });
 
-function createTaskItemNode(task) {
+function createTaskItemNode(task, projectObj) {
   const taskContainer = document.createElement('div');
   const taskNode = document.createElement('div');
   const titleTaskNode = document.createElement('div');
@@ -80,6 +81,25 @@ function createTaskItemNode(task) {
     }
   });
 
+  const editNode = document.createElement('div');
+  editNode.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;"
+   viewBox="0 0 24 24">
+   <title>file-edit-outline</title>
+   <path fill="#4b5563" d="M10 20H6V4H13V9H18V12.1L20 10.1V8L14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H10V20M20.2 13C20.3 13 20.5 13.1 20.6 13.2L21.9 14.5C22.1 14.7 22.1 15.1 21.9 15.3L20.9 16.3L18.8 14.2L19.8 13.2C19.9 13.1 20 13 20.2 13M20.2 16.9L14.1 23H12V20.9L18.1 14.8L20.2 16.9Z" /></svg>`
+  editNode.classList.add('task-svg');
+
+  const deleteNode = document.createElement('div');
+  deleteNode.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;" 
+  viewBox="0 0 24 24">
+  <title>delete</title>
+  <path fill="#4b5563" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" /></svg>`
+  deleteNode.classList.add('task-svg');
+  deleteNode.addEventListener('click', () => {
+    todoListNode.removeChild(taskContainer);
+    // delete from project list as well
+    projectObj.removeTask(task);
+  });
+
   dueDateNode.innerText = task.getFormattedDate;
   dueDateNode.setAttribute('class', 'due-date-display');
 
@@ -88,6 +108,8 @@ function createTaskItemNode(task) {
   taskNode.appendChild(container);
   row.appendChild(titleTaskNode);
   row.appendChild(dueDateNode);
+  row.appendChild(editNode);
+  row.appendChild(deleteNode);
   titleTaskNode.innerText = task.getTitle;
   taskNode.appendChild(row);
   taskNode.classList.add('task-item');
@@ -142,7 +164,7 @@ function createNewProject(projectTitle) {
           const description = e.target[2].value;
           const task = new Task(title, description, date);
           newProject.addTask(task);
-          const taskItemNode = createTaskItemNode(task);
+          const taskItemNode = createTaskItemNode(task, newProject);
           todoListNode.appendChild(taskItemNode);
           todoListNode.removeChild(taskFormNode);
         }

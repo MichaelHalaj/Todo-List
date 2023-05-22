@@ -26,6 +26,10 @@ class Project {
   get getTaskList() {
     return this.taskList;
   }
+
+  removeTask(taskObj) {
+    this.taskList = this.taskList.filter((el) => el.getTitle !== taskObj.getTitle);
+  }
 }
 
 export default Project;
