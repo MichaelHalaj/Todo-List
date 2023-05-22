@@ -1,3 +1,4 @@
+import { plusSVG } from "./svg";
 const removeAllChildren = (node) => {
   while (node.firstChild) {
     node.removeChild(node.firstChild);
