@@ -3,7 +3,7 @@ import { format, compareAsc } from 'date-fns';
 import Project from './project';
 import Task from './task';
 import { removeAllChildren, createAddTaskNode, createTaskForm } from './functions';
-
+// import { plusSVG } from './svg';
 
 /**
  * Attach all project titles under the My Projects title within the DOM
