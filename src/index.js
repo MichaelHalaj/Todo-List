@@ -163,6 +163,8 @@ function createNewProject(projectTitle) {
   projectsList.push(newProject);
   myProjectsTitle.appendChild(newProjectNode);
   newProjectNode.addEventListener('click', () => {
+    console.log(`Project ${newProject}`);
+    console.table(newProject);
     removeAllChildren(todoListNode);
     const projectTitleContainerNode = document.createElement('div');
     projectTitleContainerNode.classList.add('todo-list-project-title');
@@ -171,7 +173,7 @@ function createNewProject(projectTitle) {
     projectTitleContainerNode.appendChild(projectTitleNode);
     todoListNode.appendChild(projectTitleContainerNode);
     newProject.getTaskList.forEach((task) => {
-      const taskNode = createTaskItemNode(task);
+      const taskNode = createTaskItemNode(task, newProject);
       todoListNode.appendChild(taskNode);
     });
     const addTaskNode = createAddTaskNode();
