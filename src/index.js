@@ -80,6 +80,21 @@ function createTaskItemNode(task, projectObj) {
       task.setCompleted = true;
     }
   });
+  const dropDown = document.createElement('div');
+  dropDown.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;" 
+  viewBox="0 0 24 24">
+  <title>arrow-down-drop-circle-outline</title>
+  <path fill="#4b5563" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z" /></svg>`
+  dropDown.classList.add('task-svg');
+  dropDown.classList.add('dropdown');
+
+  const dropUp = document.createElement('div');
+  dropUp.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;" 
+  viewBox="0 0 24 24">
+  <title>arrow-up-drop-circle-outline</title>
+  <path fill="#4b5563" d="M12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M17,14L12,9L7,14H17Z" /></svg>`
+  dropUp.classList.add('task-svg');
+  dropUp.classList.add('dropdown');
 
   const editNode = document.createElement('div');
   editNode.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;"
@@ -108,6 +123,7 @@ function createTaskItemNode(task, projectObj) {
   taskNode.appendChild(container);
   row.appendChild(titleTaskNode);
   row.appendChild(dueDateNode);
+  row.appendChild(dropDown);
   row.appendChild(editNode);
   row.appendChild(deleteNode);
   titleTaskNode.innerText = task.getTitle;
@@ -117,11 +133,23 @@ function createTaskItemNode(task, projectObj) {
   if (task.getDescription.length > 0) {
     taskContainer.appendChild(descriptionContainer);
   }
-  taskNode.addEventListener('click', () => {
+
+  dropDown.addEventListener('click', () => {
     if (descriptionContainer.classList.contains('hide')) {
       descriptionContainer.classList.remove('hide');
+      row.replaceChild(dropUp, dropDown);
     } else {
       descriptionContainer.classList.add('hide');
+      row.replaceChild(dropDown, dropUp);
+    }
+  });
+  dropUp.addEventListener('click', () => {
+    if (descriptionContainer.classList.contains('hide')) {
+      descriptionContainer.classList.remove('hide');
+      row.replaceChild(dropUp, dropDown);
+    } else {
+      descriptionContainer.classList.add('hide');
+      row.replaceChild(dropDown, dropUp);
     }
   });
   return taskContainer;

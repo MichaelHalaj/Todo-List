@@ -332,6 +332,8 @@ textarea:focus-visible {
 }
 .due-date-display {
     margin-left: auto;
+    font-size: 0.8em;
+    align-self: center;
 }
 .todo-list-project-title {
     display: flex;
