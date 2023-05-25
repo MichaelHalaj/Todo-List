@@ -102,6 +102,7 @@ function createTaskItemNode(task, projectObj) {
    <title>file-edit-outline</title>
    <path fill="#4b5563" d="M10 20H6V4H13V9H18V12.1L20 10.1V8L14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H10V20M20.2 13C20.3 13 20.5 13.1 20.6 13.2L21.9 14.5C22.1 14.7 22.1 15.1 21.9 15.3L20.9 16.3L18.8 14.2L19.8 13.2C19.9 13.1 20 13 20.2 13M20.2 16.9L14.1 23H12V20.9L18.1 14.8L20.2 16.9Z" /></svg>`
   editNode.classList.add('task-svg');
+  // editNode.addEventListener()
 
   const deleteNode = document.createElement('div');
   deleteNode.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;" 
@@ -155,6 +156,37 @@ function createTaskItemNode(task, projectObj) {
   return taskContainer;
 }
 
+function createTaskItem(e, newProject, taskFormNode, addTaskNode) {
+  if (e.submitter.id === 'cancel-button') {
+    todoListNode.removeChild(taskFormNode);
+    todoListNode.appendChild(addTaskNode);
+    return;
+  }
+  const dueDate = document.querySelector('#due-date');
+  if (!e.target[0].value) {
+    const title = document.querySelector('#title');
+    title.classList.add('missing');
+    if (!e.target[1].value) {
+      dueDate.classList.add('missing');
+      return;
+    }
+    return;
+  }
+  if (!e.target[1].value) {
+    dueDate.classList.add('missing');
+    return;
+  }
+  const title = e.target[0].value;
+  const date = e.target[1].value;
+  const description = e.target[2].value;
+  const task = new Task(title, description, date);
+  newProject.addTask(task);
+  const taskItemNode = createTaskItemNode(task, newProject);
+  todoListNode.appendChild(taskItemNode);
+  todoListNode.removeChild(taskFormNode);
+  todoListNode.appendChild(addTaskNode);
+}
+
 function createNewProject(projectTitle) {
   const newProject = new Project(projectTitle);
   const newProjectNode = document.createElement('button');
@@ -163,7 +195,6 @@ function createNewProject(projectTitle) {
   projectsList.push(newProject);
   myProjectsTitle.appendChild(newProjectNode);
   newProjectNode.addEventListener('click', () => {
-    console.log(`Project ${newProject}`);
     console.table(newProject);
     removeAllChildren(todoListNode);
     const projectTitleContainerNode = document.createElement('div');
@@ -186,19 +217,7 @@ function createNewProject(projectTitle) {
       // todoListNode.insertBefore(taskFormNode, addTaskNode);
       taskFormNode.addEventListener('submit', (e) => {
         e.preventDefault();
-        if (e.submitter.id === 'cancel-button') {
-          todoListNode.removeChild(taskFormNode);
-        } else {
-          const title = e.target[0].value;
-          const date = e.target[1].value;
-          const description = e.target[2].value;
-          const task = new Task(title, description, date);
-          newProject.addTask(task);
-          const taskItemNode = createTaskItemNode(task, newProject);
-          todoListNode.appendChild(taskItemNode);
-          todoListNode.removeChild(taskFormNode);
-        }
-        todoListNode.appendChild(addTaskNode);
+        createTaskItem(e, newProject, taskFormNode, addTaskNode);
       });
     });
   });

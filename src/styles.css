@@ -178,6 +178,9 @@ input[type='text']:focus-visible {
     display: flex;
     gap: 8px;
 }
+.row-task-form * {
+    box-shadow: 0 0 5px #9ca3af;
+}
 textarea {
     resize: none;
     height: 80px;
@@ -200,9 +203,8 @@ textarea {
     padding: 8px;
     border-radius: 5px;
     width: 100%;
-    background-color: #f8fafc;
     color: #4b5563;
-    box-shadow: 0 0 5px #9ca3af;
+    
 }
 #title:focus-visible {
     box-shadow: 0 0 5px #4b5563; 
@@ -212,13 +214,14 @@ textarea {
     padding: 8px;
     border: none;
     font-family: 'Montserrat', sans-serif;
-    box-shadow: 0 0 5px #9ca3af;
+    /* box-shadow: 0 0 5px #9ca3af; */
     border-radius: 5px;
     font-size: 1.8rem;
     color: #4b5563;
 }
 textarea {
     font-size: 1rem;
+    box-shadow: 0 0 5px #9ca3af; 
 }
 input[type="datetime-local"]:focus-visible,
 textarea:focus-visible {
@@ -378,4 +381,7 @@ textarea:focus-visible {
 .task-svg:hover {
     cursor: pointer;
     background-color: #d1d5da;
+}
+.missing {
+    box-shadow: 0 0 5px #ef4444;
 }
