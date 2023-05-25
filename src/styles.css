@@ -385,3 +385,6 @@ textarea:focus-visible {
 .missing {
     box-shadow: 0 0 5px #ef4444;
 }
+.crossed {
+    text-decoration: line-through;
+}

@@ -72,12 +72,15 @@ function createTaskItemNode(task, projectObj) {
   checkmark.classList.add('checkmark');
   if (task.completed) {
     checkMarkInput.setAttribute('checked', 'checked');
+    row.classList.add('crossed');
   }
   checkMarkInput.addEventListener('click', () => {
     if (task.completed) {
       task.setCompleted = false;
+      row.classList.remove('crossed');
     } else {
       task.setCompleted = true;
+      row.classList.add('crossed');
     }
   });
   const dropDown = document.createElement('div');
