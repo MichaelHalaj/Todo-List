@@ -45,6 +45,8 @@ class Task {
 
   set setDueDate(dueDate) {
     this.dueDate = dueDate;
+    const dateFNS = new Date(this.dueDate);
+    this.formattedDate = format(dateFNS, 'H:mma MM/dd/yyyy');
   }
 
   set setPriority(priority) {

@@ -1,5 +1,5 @@
 import './styles.css';
-import { format, compareAsc } from 'date-fns';
+import { format, compareAsc, isValid } from 'date-fns';
 import Project from './project';
 import Task from './task';
 import { removeAllChildren, createAddTaskNode, createTaskForm } from './functions';
@@ -102,7 +102,6 @@ function createTaskItemNode(task, projectObj) {
    <title>file-edit-outline</title>
    <path fill="#4b5563" d="M10 20H6V4H13V9H18V12.1L20 10.1V8L14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H10V20M20.2 13C20.3 13 20.5 13.1 20.6 13.2L21.9 14.5C22.1 14.7 22.1 15.1 21.9 15.3L20.9 16.3L18.8 14.2L19.8 13.2C19.9 13.1 20 13 20.2 13M20.2 16.9L14.1 23H12V20.9L18.1 14.8L20.2 16.9Z" /></svg>`
   editNode.classList.add('task-svg');
-  // editNode.addEventListener()
 
   const deleteNode = document.createElement('div');
   deleteNode.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;" 
@@ -122,11 +121,13 @@ function createTaskItemNode(task, projectObj) {
   container.appendChild(checkMarkInput);
   container.appendChild(checkmark);
   taskNode.appendChild(container);
+
   row.appendChild(titleTaskNode);
   row.appendChild(dueDateNode);
   row.appendChild(dropDown);
   row.appendChild(editNode);
   row.appendChild(deleteNode);
+
   titleTaskNode.innerText = task.getTitle;
   taskNode.appendChild(row);
   taskNode.classList.add('task-item');
@@ -153,14 +154,41 @@ function createTaskItemNode(task, projectObj) {
       row.replaceChild(dropDown, dropUp);
     }
   });
+  editNode.addEventListener(('click'), () => {
+    const taskEditFormNode = createTaskForm(
+      task.getTitle,
+      task.getDueDate,
+      task.getDescription,
+    );
+    todoListNode.replaceChild(taskEditFormNode, taskContainer);
+    // todoListNode.insertBefore(taskFormNode, addTaskNode);
+    taskEditFormNode.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // eslint-disable-next-line no-use-before-define
+      if (e.submitter.id === 'cancel-button') {
+        todoListNode.replaceChild(taskContainer, taskEditFormNode);
+      } else if (!isValidForm(e, taskEditFormNode, null, taskContainer)) {
+        console.log('not valid form');
+      } else {
+        task.setTitle = e.target[0].value;
+        task.setDueDate = e.target[1].value;
+        console.log(task.dueDate);
+        task.setDescription = e.target[2].value;
+        const newTask = createTaskItemNode(task, projectObj);
+        todoListNode.replaceChild(newTask, taskEditFormNode);
+      }
+    });
+  });
   return taskContainer;
 }
 
-function createTaskItem(e, newProject, taskFormNode, addTaskNode) {
+function isValidForm(e, taskFormNode, addTaskNode = null, taskNode = null) {
   if (e.submitter.id === 'cancel-button') {
-    todoListNode.removeChild(taskFormNode);
-    todoListNode.appendChild(addTaskNode);
-    return;
+    if (!taskNode) {
+      todoListNode.removeChild(taskFormNode);
+      todoListNode.appendChild(addTaskNode);
+    }
+    return false;
   }
   const dueDate = document.querySelector('#due-date');
   if (!e.target[0].value) {
@@ -168,12 +196,19 @@ function createTaskItem(e, newProject, taskFormNode, addTaskNode) {
     title.classList.add('missing');
     if (!e.target[1].value) {
       dueDate.classList.add('missing');
-      return;
+      return false;
     }
-    return;
+    return false;
   }
   if (!e.target[1].value) {
     dueDate.classList.add('missing');
+    return false;
+  }
+  return true;
+}
+
+function createTaskItem(e, newProject, taskFormNode, addTaskNode) {
+  if (!isValidForm(e, taskFormNode, addTaskNode)) {
     return;
   }
   const title = e.target[0].value;

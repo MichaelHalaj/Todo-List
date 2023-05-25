@@ -22,7 +22,7 @@ const createAddTaskNode = () => {
   node.appendChild(contain);
   return node;
 };
-const createTaskForm = () => {
+const createTaskForm = (titleValue = null, dateValue = null, descriptionValue = null) => {
   // Create form element
   const form = document.createElement('form');
   form.setAttribute('id', 'task-form');
@@ -33,16 +33,25 @@ const createTaskForm = () => {
   title.setAttribute('type', 'text');
   title.setAttribute('maxlength', '30');
   title.setAttribute('placeholder', 'Enter Task Name');
+  if (titleValue) {
+    title.setAttribute('value', titleValue);
+  }
 
   // Create description input
   const description = document.createElement('textarea');
   description.setAttribute('id', 'description');
   description.setAttribute('placeholder', 'Enter Description of Task (Optional)')
+  if (descriptionValue) {
+    description.innerText = descriptionValue;
+  }
 
   // Create date input
   const date = document.createElement('input');
   date.setAttribute('type', 'datetime-local');
   date.setAttribute('id', 'due-date');
+  if (dateValue) {
+    date.setAttribute('value', dateValue);
+  }
 
   // Create row
   const row = document.createElement('div');
@@ -54,7 +63,12 @@ const createTaskForm = () => {
   const submit = document.createElement('input');
   submit.setAttribute('type', 'submit');
   submit.setAttribute('id', 'add-task-button');
-  submit.setAttribute('value', 'Add');
+  // Check if this is an edit task form or add task form
+  if (titleValue || dateValue || descriptionValue) {
+    submit.setAttribute('value', 'Confirm Changes');
+  } else {
+    submit.setAttribute('value', 'Add');
+  }
 
   // Create cancel
   const cancel = document.createElement('button');
