@@ -226,6 +226,12 @@ function createTaskItem(e, newProject, taskFormNode, addTaskNode) {
 }
 
 function createNewProject(projectTitle) {
+  const inputBox = document.querySelector('#project-form input[type="text"]');
+  if (projectTitle.length <= 0) {
+    inputBox.classList.add('missing');
+    return;
+  }
+  inputBox.classList.remove('missing');
   const newProject = new Project(projectTitle);
   const newProjectNode = document.createElement('button');
   newProjectNode.textContent = newProject.getProjectTitle;
