@@ -132,7 +132,7 @@ input[type='text']:focus-visible {
     color: #f8fafc;
     justify-content: center;
     background-color: #6b7280;
-    border-radius: 0px 5px 5px 0px;
+    border-radius: 0;
     padding: 8px;
     border-width: 5px 5px 5px 5px;
     border-left: 3px solid #ef4444;
@@ -387,4 +387,20 @@ textarea:focus-visible {
 }
 .crossed {
     text-decoration: line-through;
+}
+.project-item-container {
+    display: flex;
+}
+.project-item:first-child {
+    flex: 1;
+}
+.project-trash {
+    display: flex;
+    align-items: center;
+    border-radius: 0px 5px 5px 0px;
+    background-color: #6b7280;
+}
+.project-trash:hover {
+    background-color: #4b5563;
+    cursor: pointer;
 }

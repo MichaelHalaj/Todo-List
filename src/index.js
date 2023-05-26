@@ -7,6 +7,11 @@ import { ro } from 'date-fns/locale';
 // import { plusSVG } from './svg';
 
 /**
+ * Add method to delete project
+ * Fix issue where deleting tasks with same names deletes all of them
+ */
+
+/**
  * Attach all project titles under the My Projects title within the DOM
  */
 const myProjectsTitle = document.querySelector('#projects-title');
@@ -27,6 +32,8 @@ const projectsList = [];
 
 function hideProjectForm() {
   projectFormNode.reset();
+  const inputBox = document.querySelector('#project-form input[type="text"]');
+  inputBox.classList.remove('missing');
   projectFormNode.classList.add('hide');
   projectFormNode.classList.remove('col');
   addNewProjectNode.classList.remove('hide');
@@ -227,17 +234,27 @@ function createTaskItem(e, newProject, taskFormNode, addTaskNode) {
 
 function createNewProject(projectTitle) {
   const inputBox = document.querySelector('#project-form input[type="text"]');
+  inputBox.classList.remove('missing');
   if (projectTitle.length <= 0) {
     inputBox.classList.add('missing');
     return;
   }
-  inputBox.classList.remove('missing');
+  const projectContainer = document.createElement('div');
+  projectContainer.classList.add('project-item-container');
   const newProject = new Project(projectTitle);
   const newProjectNode = document.createElement('button');
+  const deleteNode = document.createElement('div');
+  deleteNode.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;" 
+  viewBox="0 0 24 24">
+  <title>delete</title>
+  <path fill="#f8fafc" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" /></svg>`
+  deleteNode.classList.add('project-trash');
   newProjectNode.textContent = newProject.getProjectTitle;
   newProjectNode.classList.add('project-item');
   projectsList.push(newProject);
-  myProjectsTitle.appendChild(newProjectNode);
+  projectContainer.appendChild(newProjectNode);
+  projectContainer.appendChild(deleteNode);
+  myProjectsTitle.appendChild(projectContainer);
   newProjectNode.addEventListener('click', () => {
     console.table(newProject);
     removeAllChildren(todoListNode);
