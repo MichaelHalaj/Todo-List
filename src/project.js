@@ -1,6 +1,7 @@
 class Project {
-  constructor(projectTitle) {
+  constructor(projectTitle, projectID) {
     this.projectTitle = projectTitle;
+    this.projectID = projectID;
     this.taskList = [];
   }
 
@@ -27,8 +28,16 @@ class Project {
     return this.taskList;
   }
 
+  get getProjectID() {
+    return this.projectID;
+  }
+
+  set setProjectID(projectID) {
+    this.projectID = projectID;
+  }
+
   removeTask(taskObj) {
-    this.taskList = this.taskList.filter((el) => el.getTitle !== taskObj.getTitle);
+    this.taskList = this.taskList.filter((el) => el.getTaskID !== taskObj.getTaskID);
   }
 }
 

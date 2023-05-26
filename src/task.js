@@ -1,7 +1,7 @@
 import { format, compareAsc } from 'date-fns';
 
 class Task {
-  constructor(title, description, dueDate, priority = 'none', completed = false) {
+  constructor(title, description, dueDate, taskID, priority = 'none', completed = false) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
@@ -9,6 +9,7 @@ class Task {
     this.completed = completed;
     const dateFNS = new Date(dueDate);
     this.formattedDate = format(dateFNS, 'H:mma MM/dd/yyyy');
+    this.taskID = taskID;
   }
 
   get getFormattedDate() {
@@ -35,6 +36,10 @@ class Task {
     return this.completed;
   }
 
+  get getTaskID() {
+    return this.taskID;
+  }
+
   set setTitle(title) {
     this.title = title;
   }
@@ -55,6 +60,10 @@ class Task {
 
   set setCompleted(completed) {
     this.completed = completed;
+  }
+
+  set setTaskID(taskID) {
+    this.taskID = taskID;
   }
 }
 /*

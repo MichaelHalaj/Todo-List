@@ -28,7 +28,10 @@ const projectFormNode = document.querySelector('#project-form');
 
 const addTask = document.querySelector('.add-task');
 
-const projectsList = [];
+let projectsList = [];
+
+// Assign id's to projects to delete them more easily
+let projectID = 0;
 
 function hideProjectForm() {
   projectFormNode.reset();
@@ -217,14 +220,14 @@ function isValidForm(e, taskFormNode, addTaskNode = null, taskNode = null) {
   return true;
 }
 
-function createTaskItem(e, newProject, taskFormNode, addTaskNode) {
+function createTaskItem(e, newProject, taskFormNode, addTaskNode, taskID) {
   if (!isValidForm(e, taskFormNode, addTaskNode)) {
     return;
   }
   const title = e.target[0].value;
   const date = e.target[1].value;
   const description = e.target[2].value;
-  const task = new Task(title, description, date);
+  const task = new Task(title, description, date, taskID);
   newProject.addTask(task);
   const taskItemNode = createTaskItemNode(task, newProject);
   todoListNode.appendChild(taskItemNode);
@@ -241,7 +244,7 @@ function createNewProject(projectTitle) {
   }
   const projectContainer = document.createElement('div');
   projectContainer.classList.add('project-item-container');
-  const newProject = new Project(projectTitle);
+  const newProject = new Project(projectTitle, projectID += 1);
   const newProjectNode = document.createElement('button');
   const deleteNode = document.createElement('div');
   deleteNode.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;" 
@@ -249,6 +252,10 @@ function createNewProject(projectTitle) {
   <title>delete</title>
   <path fill="#f8fafc" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" /></svg>`
   deleteNode.classList.add('project-trash');
+  deleteNode.addEventListener(('click'), () => {
+    projectsList = projectsList.filter((el) => el.getProjectID !== newProject.getProjectID);
+    myProjectsTitle.removeChild(projectContainer);
+  });
   newProjectNode.textContent = newProject.getProjectTitle;
   newProjectNode.classList.add('project-item');
   projectsList.push(newProject);
@@ -270,6 +277,7 @@ function createNewProject(projectTitle) {
     });
     const addTaskNode = createAddTaskNode();
     todoListNode.appendChild(addTaskNode);
+    let taskID = 0;
     addTaskNode.addEventListener('click', () => {
       console.log('task node');
       const taskFormNode = createTaskForm();
@@ -278,7 +286,7 @@ function createNewProject(projectTitle) {
       // todoListNode.insertBefore(taskFormNode, addTaskNode);
       taskFormNode.addEventListener('submit', (e) => {
         e.preventDefault();
-        createTaskItem(e, newProject, taskFormNode, addTaskNode);
+        createTaskItem(e, newProject, taskFormNode, addTaskNode, taskID += 1);
       });
     });
   });
